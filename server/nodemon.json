@@ -1,0 +1,15 @@
+{
+  "exec": "node node_modules/ts-node/dist/bin.js ./app-server.ts ",
+  "ext": "ts,js,json,yaml",
+  "ignore": [
+    "migrations"
+  ],
+  "watch": [
+    "config",
+    "contexts",
+    "documentation",
+    "helpers",
+    "modules"
+  ],
+  "pollingInterval": 4000
+}

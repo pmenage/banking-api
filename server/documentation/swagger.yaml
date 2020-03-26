@@ -1,0 +1,290 @@
+swagger: "2.0"
+info:
+  description: "Banking API"
+  version: "1.0.0"
+  title: "Banking API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "pauline.menage26@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: ""
+basePath: "/api"
+tags:
+- name: "card"
+- name: "transfer"
+- name: "wallet"
+schemes:
+- "https"
+- "http"
+paths:
+  /cards:
+    get:
+      tags:
+      - "card"
+      summary: "Finds cards by user id"
+      description: "Find all cards by user."
+      operationId: "findAllCardsByUserId"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "User-Id"
+        schema:
+          type: "integer"
+        required: "true"
+      responses:
+        200:
+          description: "Ok"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Card"
+    post:
+      tags:
+      - "card"
+      summary: "Create a card for a user"
+      description: "Create a card for a user from a wallet."
+      operationId: "createCard"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "User-Id"
+        schema:
+          type: "integer"
+        required: "true"
+      - in: "body"
+        name: "body"
+        description: "Card object"
+        required: true
+        schema:
+          type: "object"
+          required:
+          - "walletId"
+          properties:
+            walletId:
+              type: "integer"
+      responses:
+        201:
+          description: "Created"
+        400:
+          description: "Bad Request"
+  /cards/load/{id}:
+    put:
+      tags:
+      - "card"
+      summary: "Load money on card"
+      description: "A user can load money on one of his cards."
+      operationId: "load"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "User-Id"
+        schema:
+          type: "integer"
+        required: "true"
+      - in: "body"
+        name: "body"
+        description: "Amount"
+        required: true
+        schema:
+          type: "object"
+          required:
+          - "amount"
+          properties:
+            amount:
+              type: "integer"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Bad Request"
+        404:
+          description: "Object Not Found"
+  /cards/unload/{id}:
+    put:
+      tags:
+      - "card"
+      summary: "Unload money from a card"
+      description: "A user can unload money from one of his cards."
+      operationId: "unload"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "User-Id"
+        schema:
+          type: "integer"
+        required: "true"
+      - in: "body"
+        name: "body"
+        description: "Amount"
+        required: true
+        schema:
+          type: "object"
+          required:
+          - "amount"
+          properties:
+            amount:
+              type: "integer"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Bad Request"
+        404:
+          description: "Object Not Found"
+  /cards/block/{id}:
+    put:
+      tags:
+      - "card"
+      summary: "Block card"
+      description: "A user can block one of his cards."
+      operationId: "load"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "User-Id"
+        schema:
+          type: "integer"
+        required: "true"
+      responses:
+        200:
+          description: "OK"
+        404:
+          description: "Object Not Found"
+  /cards/unblock/{id}:
+    put:
+      tags:
+      - "card"
+      summary: "Unblock card"
+      description: "A user can unblock one of his cards."
+      operationId: "load"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "User-Id"
+        schema:
+          type: "integer"
+        required: "true"
+      responses:
+        200:
+          description: "OK"
+        404:
+          description: "Object Not Found"
+  /wallets:
+    get:
+      tags:
+      - "wallet"
+      summary: "Finds wallets by company id"
+      description: "Find all wallets by company."
+      operationId: "findAllWalletsByCompanyId"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "Company-Id"
+        schema:
+          type: "integer"
+        required: "true"
+      responses:
+        200:
+          description: "Ok"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Wallet"
+    post:
+      tags:
+      - "wallet"
+      summary: "Create a wallet for a company"
+      description: "Create a wallet for a company from a wallet."
+      operationId: "createWallet"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "Company-Id"
+        schema:
+          type: "integer"
+        required: "true"
+      - in: "body"
+        name: "body"
+        description: "Wallet object"
+        required: true
+        schema:
+          type: "object"
+          required:
+          - "walletId"
+          properties:
+            walletId:
+              type: "integer"
+      responses:
+        201:
+          description: "Created"
+        400:
+          description: "Bad Request"
+definitions:
+  Card:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      walletId:
+        type: "integer"
+        example: 1
+      currency:
+        type: "string"
+        enum:
+        - "EUR"
+        - "GBP"
+        - "USD"
+      currentBalance:
+        type: "number"
+      expirationDate:
+        type: "string"
+        example: "2020-04-26 15:07:25"
+      cardNumber:
+        type: "string"
+        example: "4242 4242 4242 4242"
+      ccv:
+        type: "string"
+        example: "123"
+      status:
+        type: "string"
+        description: "Is blocked or not"
+        enum:
+        - "Blocked"
+        - "Unblocked"
+  Wallet:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      currency:
+        type: "string"
+        enum:
+        - "EUR"
+        - "GBP"
+        - "USD"
+      currentBalance:
+        type: "number"
+      isMasterWallet:
+        type: "boolean"
