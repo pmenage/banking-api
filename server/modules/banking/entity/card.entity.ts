@@ -2,6 +2,11 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 
 import { WalletEntity } from './wallet.entity';
 
+export enum Status {
+    Blocked = 1,
+    Unblocked,
+}
+
 @Entity('card')
 export class CardEntity {
     @PrimaryGeneratedColumn()
@@ -19,6 +24,6 @@ export class CardEntity {
     ccv: string;
     @Column()
     userId: number;
-    @Column({ default: false })
-    isBlocked: boolean;
+    @Column({ default: Status.Unblocked })
+    status: Status;
 }

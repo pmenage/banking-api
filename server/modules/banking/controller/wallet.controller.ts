@@ -15,7 +15,6 @@ export class WalletController implements IWalletController {
     async create(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const walletDomain = await this.walletService.create(req.body, +req.get('Company-Id'));
-            console.log(walletDomain);
             res.status(201).json(walletDomain);
         } catch (error) {
             next(error);

@@ -4,7 +4,8 @@ import { WalletEntity } from "../entity/wallet.entity";
 import { SelectQueryBuilder } from "typeorm";
 
 export interface IWalletRepository {
-    findAllByCompanyId(companyId: number): Promise<WalletEntity[]>
+    findAllByCompanyId(companyId: number): Promise<WalletEntity[]>;
+    findById(id: number): Promise<WalletEntity>;
     save(walletEntity: WalletEntity): Promise<WalletEntity>;
 }
 
@@ -17,6 +18,12 @@ export class WalletRepository implements IWalletRepository {
         return this._defaultSelectQueryBuilder()
             .where('wallet.companyId = :companyId', { companyId })
             .getMany();
+    }
+
+    findById(id: number): Promise<WalletEntity> {
+        return this._defaultSelectQueryBuilder()
+            .where('wallet.id = :id', { id })
+            .getOne();
     }
 
     save(walletEntity: WalletEntity): Promise<WalletEntity> {

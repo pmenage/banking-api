@@ -92,9 +92,9 @@ export class Init1585214330904 implements MigrationInterface {
                     type: 'int',
                 },
                 {
-                    name: 'isBlocked',
-                    type: 'boolean',
-                    default: false,
+                    name: 'status',
+                    type: 'int',
+                    default: 2,
                 },
             ]
         }));
