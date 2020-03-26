@@ -4,7 +4,8 @@ import { CardEntity } from "../entity/card.entity";
 import { SelectQueryBuilder } from "typeorm";
 
 export interface ICardRepository {
-    findAllByUserId(userId: number): Promise<CardEntity[]>
+    findAllByUserId(userId: number): Promise<CardEntity[]>;
+    findById(id: number): Promise<CardEntity>;
     save(cardEntity: CardEntity): Promise<CardEntity>;
 }
 
@@ -17,6 +18,12 @@ export class CardRepository implements ICardRepository {
         return this._defaultSelectQueryBuilder()
             .where('card.userId = :userId', { userId })
             .getMany();
+    }
+
+    findById(id: number): Promise<CardEntity> {
+        return this._defaultSelectQueryBuilder()
+            .where('wallet.id = :id', { id })
+            .getOne();
     }
 
     save(cardEntity: CardEntity): Promise<CardEntity> {

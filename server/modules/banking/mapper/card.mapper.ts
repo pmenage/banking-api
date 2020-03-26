@@ -13,9 +13,9 @@ class CardMapper extends BaseMapper<CardEntity, CardDomain> {
         cardDomain.id = cardEntity.id;
         if (cardEntity.wallet) {
             cardDomain.walletId = cardEntity.wallet.id;
-            cardDomain.currentBalance = cardEntity.wallet.currentBalance;
-            cardDomain.currency = cardEntity.wallet.currency;
         }
+        cardDomain.currentBalance = cardEntity.currentBalance;
+        cardDomain.currency = cardEntity.currency;
         cardDomain.expirationDate = moment(cardEntity.createdAt).add(1, 'M').format("YYYY-MM-DD HH:mm:ss");
         cardDomain.cardNumber = cardEntity.cardNumber;
         cardDomain.ccv = cardEntity.ccv;
@@ -31,6 +31,8 @@ class CardMapper extends BaseMapper<CardEntity, CardDomain> {
 
         cardEntity.id = cardDomain.id;
         cardEntity.wallet = walletEntity;
+        cardEntity.currentBalance = cardDomain.currentBalance;
+        cardEntity.currency = cardDomain.currency;
         cardEntity.cardNumber = cardDomain.cardNumber;
         cardEntity.ccv = cardDomain.ccv;
         cardEntity.userId = cardDomain.userId;

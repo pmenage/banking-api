@@ -22,3 +22,8 @@ export class CardDomain {
 
     status: Status;
 }
+
+export class CardLoadDomain {
+    @IsNumber()
+    amount: number;
+}

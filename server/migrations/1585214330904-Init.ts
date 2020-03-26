@@ -80,6 +80,16 @@ export class Init1585214330904 implements MigrationInterface {
                     type: 'int',
                 },
                 {
+                    name: 'currentBalance',
+                    type: 'double',
+                    default: 0
+                },
+                {
+                    name: 'currency',
+                    type: 'int',
+                    default: 1,
+                },
+                {
                     name: 'cardNumber',
                     type: 'varchar(255)',
                 },

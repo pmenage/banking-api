@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, JoinColumn, ManyToOne } from 'typeorm';
 
-import { WalletEntity } from './wallet.entity';
+import { WalletEntity, Currency } from './wallet.entity';
 
 export enum Status {
     Blocked = 1,
@@ -18,6 +18,10 @@ export class CardEntity {
     @ManyToOne(type => WalletEntity)
     @JoinColumn({ name: 'walletId' })
     wallet: WalletEntity;
+    @Column({ default: 0 })
+    currentBalance: number;
+    @Column({ default: Currency.EUR })
+    currency: Currency;
     @Column()
     cardNumber: string;
     @Column()

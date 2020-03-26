@@ -6,6 +6,10 @@ import { ICardService, CardService } from '../service/card.service';
 export interface ICardController {
     create(req: Request, res: Response, next: NextFunction): Promise<void>;
     findAllByUserId(req: Request, res: Response, next: NextFunction): Promise<void>
+    block(req: Request, res: Response, next: NextFunction): Promise<void>;
+    load(req: Request, res: Response, next: NextFunction): Promise<void>;
+    unblock(req: Request, res: Response, next: NextFunction): Promise<void>;
+    unload(req: Request, res: Response, next: NextFunction): Promise<void>;
 }
 
 @injectable()
@@ -29,4 +33,41 @@ export class CardController implements ICardController {
             next(error);
         }
     }
+
+    async block(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const cardDomain = await this.cardService.block(+req.params.id);
+            res.json(cardDomain);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async load(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const cardDomain = await this.cardService.load(+req.params.id, req.body);
+            res.json(cardDomain);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async unblock(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const cardDomain = await this.cardService.unblock(+req.params.id);
+            res.json(cardDomain);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async unload(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const cardDomain = await this.cardService.unload(+req.params.id, req.body);
+            res.json(cardDomain);
+        } catch (error) {
+            next(error);
+        }
+    }
+
 }
