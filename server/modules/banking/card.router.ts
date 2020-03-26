@@ -21,10 +21,10 @@ export class CardRouter {
         this.router
             .get('/', [], this.cardController.findAllByUserId.bind(this.cardController))
             .post('/', [this.mw.validate(CardDomain)], this.cardController.create.bind(this.cardController))
-            .post('/load/:id', [this.mw.validate(CardLoadDomain)], this.cardController.load.bind(this.cardController))
-            .post('/unload/:id', [this.mw.validate(CardLoadDomain)], this.cardController.unload.bind(this.cardController))
-            .post('/block/:id', [], this.cardController.block.bind(this.cardController))
-            .post('/unblock/:id', [], this.cardController.unblock.bind(this.cardController));
+            .put('/load/:id', [this.mw.validate(CardLoadDomain)], this.cardController.load.bind(this.cardController))
+            .put('/unload/:id', [this.mw.validate(CardLoadDomain)], this.cardController.unload.bind(this.cardController))
+            .put('/block/:id', [], this.cardController.block.bind(this.cardController))
+            .put('/unblock/:id', [], this.cardController.unblock.bind(this.cardController));
     }
 
     getRouter() {

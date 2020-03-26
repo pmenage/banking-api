@@ -32,12 +32,16 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.24"
+    "swagger-ui-express": "^4.1.4",
+    "typeorm": "^0.2.24",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/express": "^4.17.3",
     "@types/node": "^12.12.31",
+    "@types/swagger-ui-express": "^4.1.2",
+    "@types/yamljs": "^0.2.30",
     "ts-node": "^8.8.1",
     "tslint": "^6.1.0",
     "typescript": "^3.8.3"
