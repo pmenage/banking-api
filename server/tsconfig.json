@@ -1,0 +1,52 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "diagnostics": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "listFiles": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "outDir": "./bin",
+    "preserveConstEnums": true,
+    "pretty": true,
+    "removeComments": true,
+    "strict": false,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "target": "es2017",
+    "lib": [
+      "es7",
+      "es2017",
+      "es2016",
+      "es2015",
+      "es6",
+      "dom"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.json"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./node_modules/**",
+    "./typings/**",
+    "./z_trash/**",
+    "./trash/**",
+    "./**/*spec.ts",
+    "./e2e",
+    "./testing"
+  ],
+  "___doNotDelete": {
+    "exclude": [
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "exec": "node node_modules/ts-node/dist/bin.js ./app-server.ts ",
+  "watch": [
+    "config",
+    "helpers",
+    "modules"
+  ],
+  "pollingInterval": 4000
+}
