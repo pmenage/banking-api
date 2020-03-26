@@ -1,4 +1,6 @@
-const dbConfig = {
+import { IDBConfig } from './config.interface';
+
+const dbConfig: IDBConfig = {
     name: 'default',
     type: 'mysql',
     host: 'localhost',

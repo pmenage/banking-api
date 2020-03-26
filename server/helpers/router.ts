@@ -1,14 +1,16 @@
 import * as express from 'express';
 import { inject, injectable } from 'inversify';
 
-import { HelloRouter } from '../modules/banking/hello.router';
+import { IMiddleware, Middleware } from './middleware';
+import { WalletRouter } from '../modules/banking/wallet.router';
 
 @injectable()
 export default class Router {
     public router: express.Router;
 
     constructor(
-        @inject(HelloRouter) private helloRouter: HelloRouter,
+        @inject(Middleware) private mw: IMiddleware,
+        @inject(WalletRouter) private walletRouter: WalletRouter,
     ) {
         this.buildRouter();
     }
@@ -16,6 +18,8 @@ export default class Router {
     buildRouter() {
         this.router = express.Router({ mergeParams: true });
 
-        this.router.use('/api/hello', this.helloRouter.getRouter());
+        this.router.use('/api/wallets', this.walletRouter.getRouter());
+
+        this.router.use('/api/*', [this.mw.errorHandler]);
     }
 }

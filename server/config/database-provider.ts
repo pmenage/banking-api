@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { Connection, ConnectionOptions, createConnection } from 'typeorm';
-import * as dbConfig from './orm.config';
+import { Config as dev } from './dev.config';
 
 @injectable()
 export default class DatabaseProvider {
@@ -9,7 +9,7 @@ export default class DatabaseProvider {
   async getDBConnection(): Promise<Connection> {
     try {
       if (!this.db) {
-        const config: ConnectionOptions = <ConnectionOptions>dbConfig;
+        const config: ConnectionOptions = <ConnectionOptions>dev.dbConfig;
         const db = await createConnection(config);
         if (db) {
           this.db = db;
