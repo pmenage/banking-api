@@ -1,10 +1,11 @@
 import * as bodyParser from 'body-parser';
-import { injectable } from 'inversify';
+import * as express from 'express';
+import { inject, injectable } from 'inversify';
+import { Express, Request, Response, NextFunction } from 'express';
 
 import { container } from '../config/ioc.config';
+import DatabaseProvider from '../config/database-provider';
 import Router from './router';
-import { Express, Request, Response, NextFunction } from 'express';
-import * as express from 'express';
 
 @injectable()
 export class Server {
@@ -12,10 +13,10 @@ export class Server {
   router: Router;
 
   static bootstrap() {
-    return new Server();
+    return new Server(container.get<DatabaseProvider>(DatabaseProvider));
   }
 
-  constructor() {
+  constructor(@inject(DatabaseProvider) private databaseProvider: DatabaseProvider) {
     this.app = express();
     this.config();
   }
@@ -43,8 +44,13 @@ export class Server {
     });
   }
 
+  async startConnection(): Promise<void> {
+    await this.databaseProvider.getDBConnection();
+  }
+
   async listen() {
     try {
+      await this.startConnection();
       await this.buildRoutes();
       this.app.listen(this.app.get('port'), this.app.get('host'), () => {
         console.log('Server listening on: ' + this.app.get('host') + ':' + this.app.get('port'));

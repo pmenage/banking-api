@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { inject, injectable } from 'inversify';
 
-import { HelloRouter } from '../modules/hello/hello.router';
+import { HelloRouter } from '../modules/banking/hello.router';
 
 @injectable()
 export default class Router {

@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "Banking API",
   "scripts": {
+    "build": "rm -rf bin && tsc",
     "start": "node node_modules/nodemon/bin/nodemon.js --config ./nodemon.json ",
     "lint": "node node_modules/tslint/bin/tslint --project tsconfig.json --config tslint.json --exclude '**/*.js'  --exclude node_modules --exclude .git",
     "lint:fix": "node node_modules/tslint/bin/tslint --project tsconfig.json --fix --config tslint.json --exclude '**/*.js'  --exclude node_modules --exclude .git",
-    "build": "tsc",
+    "mig-init": "node node_modules/typeorm/cli.js migration:generate -n Init --config ./bin/config/orm.config",
+    "mig-new": "node node_modules/typeorm/cli.js migration:create --config ./bin/config/orm.config",
+    "mig-up": "node node_modules/typeorm/cli.js migration:run --config ./bin/config/orm.config",
+    "mig-down": "node node_modules/typeorm/cli.js  --config ./bin/config/orm.config migration:revert",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,8 +27,10 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "inversify": "^5.0.1",
+    "mysql": "^2.18.1",
     "nodemon": "^2.0.2",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.24"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",

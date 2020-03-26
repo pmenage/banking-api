@@ -1,7 +1,11 @@
 {
   "exec": "node node_modules/ts-node/dist/bin.js ./app-server.ts ",
+  "ignore": [
+    "migrations"
+  ],
   "watch": [
     "config",
+    "context",
     "helpers",
     "modules"
   ],
