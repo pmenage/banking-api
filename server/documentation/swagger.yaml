@@ -267,6 +267,8 @@ definitions:
       ccv:
         type: "string"
         example: "123"
+      userId:
+        type: "integer"
       status:
         type: "string"
         description: "Is blocked or not"
@@ -284,6 +286,8 @@ definitions:
         - "EUR"
         - "GBP"
         - "USD"
+      companyId:
+        type: "integer"
       currentBalance:
         type: "number"
       isMasterWallet:
