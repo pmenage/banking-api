@@ -114,10 +114,23 @@ export class CardService implements ICardService {
 
 
     generateCardNumber(): string {
-        return "4242 4242 4242 4242";
+        const cardNumber = [];
+        for (let i = 0; i < 4; i++) {
+            cardNumber.push(this.generateNumbers(4));
+        }
+        return cardNumber.join(' ');
     }
 
     generateCCV(): string {
-        return "123";
+        return this.generateNumbers(3);
+    }
+
+    generateNumbers(length: number): string {
+        const result = [];
+        const characters = '0123456789';
+        for (let i = 0; i < length; i++) {
+            result.push(characters.charAt(Math.floor(Math.random() * characters.length)));
+        }
+        return result.join('');
     }
 }
