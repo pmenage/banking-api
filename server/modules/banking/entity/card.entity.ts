@@ -3,8 +3,8 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 import { WalletEntity, Currency } from './wallet.entity';
 
 export enum Status {
-    Blocked = 1,
-    Unblocked,
+    Blocked = "Blocked",
+    Unblocked = "Unblocked",
 }
 
 @Entity('card')

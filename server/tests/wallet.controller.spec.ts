@@ -27,7 +27,7 @@ describe('WalletController', () => {
         test('should create a new wallet', async () => {
             // Given
             req.body = {
-                currency: 1,
+                currency: "USD",
                 currentBalance: 400,
             }
 
@@ -37,13 +37,13 @@ describe('WalletController', () => {
             // Then
             expect(req.get('Company-Id')).toBe('1');
             expect(res.statusCode).toBe(201);
-            expect(res._getJSONData()).toStrictEqual({ "currency": 1, "currentBalance": 400 });
+            expect(res._getJSONData()).toStrictEqual({ "currency": "USD", "currentBalance": 400 });
         });
 
         test('should find all wallets', async () => {
             // Given
             const walletDomain = {
-                currency: 1,
+                currency: "USD",
                 currentBalance: 400,
                 companyId: 5,
             }
@@ -54,7 +54,7 @@ describe('WalletController', () => {
 
             // Then
             expect(res.statusCode).toBe(200);
-            expect(res._getJSONData()).toStrictEqual([{ "currency": 1, "currentBalance": 400, "companyId": 5 }]);
+            expect(res._getJSONData()).toStrictEqual([{ "currency": "USD", "currentBalance": 400, "companyId": 5 }]);
         });
     });
 })

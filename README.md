@@ -28,25 +28,3 @@ Run `npm test`.
 ## Documentation
 
 The documentation is available on localhost:8888/api/docs.
-
-## Note
-
-The enums are not available as strings yet in the objects but as numbers.
-
-For example, the body to create a request should be:
-
-```
-{
-	"currency": 1,
-	"currentBalance": 400
-}
-```
-
-instead of:
-
-```
-{
-	"currency": "EUR",
-	"currentBalance": 400
-}
-```

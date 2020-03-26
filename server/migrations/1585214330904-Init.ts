@@ -31,8 +31,8 @@ export class Init1585214330904 implements MigrationInterface {
                 },
                 {
                     name: 'currency',
-                    type: 'int',
-                    default: 1,
+                    type: 'enum',
+                    enum: ['EUR', 'GBP', 'USD'],
                 },
                 {
                     name: 'companyId',
@@ -86,8 +86,8 @@ export class Init1585214330904 implements MigrationInterface {
                 },
                 {
                     name: 'currency',
-                    type: 'int',
-                    default: 1,
+                    type: 'enum',
+                    enum: ['EUR', 'GBP', 'USD'],
                 },
                 {
                     name: 'cardNumber',
@@ -103,8 +103,8 @@ export class Init1585214330904 implements MigrationInterface {
                 },
                 {
                     name: 'status',
-                    type: 'int',
-                    default: 2,
+                    type: 'enum',
+                    enum: ['Blocked', 'Unblocked'],
                 },
             ]
         }));
@@ -173,6 +173,8 @@ export class Init1585214330904 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('wallet');
+        await queryRunner.dropTable('card');
+        await queryRunner.dropTable('transfer');
     }
 
 }

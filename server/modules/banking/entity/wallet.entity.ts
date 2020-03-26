@@ -1,9 +1,9 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 export enum Currency {
-    EUR = 1,
-    GBP,
-    USD,
+    EUR = "EUR",
+    GBP = "GBP",
+    USD = "USD",
 }
 
 @Entity('wallet')
