@@ -19,6 +19,7 @@ export class WalletRouter {
 
     setRoutes() {
         this.router
+            .get('/', [], this.walletController.findAllByCompanyId.bind(this.walletController))
             .post('/', [this.mw.validate(WalletDomain)], this.walletController.create.bind(this.walletController));
     }
 
