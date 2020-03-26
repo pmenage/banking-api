@@ -5,15 +5,15 @@ import { CardEntity, Status } from '../entity/card.entity';
 import { cardMapper } from '../mapper/card.mapper';
 import { ICardRepository, CardRepository } from '../repository/card.repository';
 import { WalletRepository, IWalletRepository } from '../repository/wallet.repository';
-import { NotFoundError, BadRequestError } from '../../../helpers/error';
+import { NotFoundError, BadRequestError, ForbiddenError } from '../../../helpers/error';
 
 export interface ICardService {
-    create(cardDomain: CardDomain, companyId: number): Promise<CardDomain>;
+    create(cardDomain: CardDomain, userId: number): Promise<CardDomain>;
     findAllByUserId(userId: number): Promise<CardDomain[]>
-    block(id: number): Promise<CardDomain>;
-    load(id: number, cardLoadDomain: CardLoadDomain): Promise<CardDomain>;
-    unblock(id: number): Promise<CardDomain>;
-    unload(id: number, cardLoadDomain: CardLoadDomain): Promise<CardDomain>;
+    block(id: number, userId: number): Promise<CardDomain>;
+    load(id: number, cardLoadDomain: CardLoadDomain, userId: number): Promise<CardDomain>;
+    unblock(id: number, userId: number): Promise<CardDomain>;
+    unload(id: number, cardLoadDomain: CardLoadDomain, userId: number): Promise<CardDomain>;
 }
 
 @injectable()
@@ -41,10 +41,13 @@ export class CardService implements ICardService {
         return cardMapper.entityToDomainArray(cardEntities);
     }
 
-    async block(id: number): Promise<CardDomain> {
+    async block(id: number, userId: number): Promise<CardDomain> {
         const cardEntity = await this.cardRepository.findById(id);
         if (!cardEntity) {
             throw new NotFoundError(`Card with id ${id} not found`);
+        }
+        if (cardEntity.userId !== userId) {
+            throw new ForbiddenError(`Forbidden`);
         }
         cardEntity.status = Status.Blocked;
         const walletEntity = await this.walletRepository.findById(cardEntity.wallet.id);
@@ -58,10 +61,13 @@ export class CardService implements ICardService {
         return cardMapper.entityToDomain(savedCardEntity);
     }
 
-    async load(id: number, cardLoadDomain: CardLoadDomain): Promise<CardDomain> {
+    async load(id: number, cardLoadDomain: CardLoadDomain, userId: number): Promise<CardDomain> {
         const cardEntity = await this.cardRepository.findById(id);
         if (!cardEntity) {
             throw new NotFoundError(`Card with id ${id} not found`);
+        }
+        if (cardEntity.userId !== userId) {
+            throw new ForbiddenError(`Forbidden`);
         }
         const walletEntity = await this.walletRepository.findById(cardEntity.wallet.id);
         if (!walletEntity) {
@@ -74,20 +80,26 @@ export class CardService implements ICardService {
         return cardMapper.entityToDomain(savedCardEntity);
     }
 
-    async unblock(id: number): Promise<CardDomain> {
+    async unblock(id: number, userId: number): Promise<CardDomain> {
         const cardEntity = await this.cardRepository.findById(id);
         if (!cardEntity) {
             throw new NotFoundError(`Card with id ${id} not found`);
+        }
+        if (cardEntity.userId !== userId) {
+            throw new ForbiddenError(`Forbidden`);
         }
         cardEntity.status = Status.Unblocked;
         const savedCardEntity = await this.cardRepository.save(cardEntity);
         return cardMapper.entityToDomain(savedCardEntity);
     }
 
-    async unload(id: number, cardLoadDomain: CardLoadDomain): Promise<CardDomain> {
+    async unload(id: number, cardLoadDomain: CardLoadDomain, userId: number): Promise<CardDomain> {
         const cardEntity = await this.cardRepository.findById(id);
         if (!cardEntity) {
             throw new NotFoundError(`Card with id ${id} not found`);
+        }
+        if (cardEntity.userId !== userId) {
+            throw new ForbiddenError(`Forbidden`);
         }
         const walletEntity = await this.walletRepository.findById(cardEntity.wallet.id);
         if (!walletEntity) {

@@ -36,7 +36,7 @@ export class CardController implements ICardController {
 
     async block(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const cardDomain = await this.cardService.block(+req.params.id);
+            const cardDomain = await this.cardService.block(+req.params.id, +req.get('User-Id'));
             res.json(cardDomain);
         } catch (error) {
             next(error);
@@ -45,7 +45,7 @@ export class CardController implements ICardController {
 
     async load(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const cardDomain = await this.cardService.load(+req.params.id, req.body);
+            const cardDomain = await this.cardService.load(+req.params.id, req.body, +req.get('User-Id'));
             res.json(cardDomain);
         } catch (error) {
             next(error);
@@ -54,7 +54,7 @@ export class CardController implements ICardController {
 
     async unblock(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const cardDomain = await this.cardService.unblock(+req.params.id);
+            const cardDomain = await this.cardService.unblock(+req.params.id, +req.get('User-Id'));
             res.json(cardDomain);
         } catch (error) {
             next(error);
@@ -63,7 +63,7 @@ export class CardController implements ICardController {
 
     async unload(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const cardDomain = await this.cardService.unload(+req.params.id, req.body);
+            const cardDomain = await this.cardService.unload(+req.params.id, req.body, +req.get('User-Id'));
             res.json(cardDomain);
         } catch (error) {
             next(error);

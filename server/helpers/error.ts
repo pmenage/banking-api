@@ -20,3 +20,9 @@ export class NotFoundError extends ErrorHandler {
         super(404, message);
     }
 }
+
+export class ForbiddenError extends ErrorHandler {
+    constructor(message: any) {
+        super(403, message);
+    }
+}
