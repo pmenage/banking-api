@@ -1,6 +1,7 @@
 import { Currency } from '../entity/wallet.entity';
 import { Status } from '../entity/card.entity';
-import { IsNumber } from 'class-validator';
+import { IsNumber, IsOptional } from 'class-validator';
+import { IsCurrency, IsStatus } from '../../../helpers/decorators';
 
 export class CardDomain {
     id?: number;
@@ -8,7 +9,9 @@ export class CardDomain {
     @IsNumber()
     walletId: number;
 
-    currency: Currency;
+    @IsCurrency()
+    @IsOptional()
+    currency?: Currency;
 
     currentBalance: number;
 
@@ -20,7 +23,9 @@ export class CardDomain {
 
     userId: number;
 
-    status: Status;
+    @IsStatus()
+    @IsOptional()
+    status?: Status;
 }
 
 export class CardLoadDomain {

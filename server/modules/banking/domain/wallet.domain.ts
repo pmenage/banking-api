@@ -1,15 +1,18 @@
 import { IsNumber, IsOptional, IsBoolean } from 'class-validator';
 
 import { Currency } from '../entity/wallet.entity';
+import { IsCurrency } from '../../../helpers/decorators';
 
 export class WalletDomain {
-    id?: number;
+    id: number;
 
     @IsNumber()
     @IsOptional()
     currentBalance?: number;
 
-    currency: Currency;
+    @IsCurrency()
+    @IsOptional()
+    currency?: Currency;
 
     companyId: number;
 
