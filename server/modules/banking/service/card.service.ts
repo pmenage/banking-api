@@ -69,6 +69,9 @@ export class CardService implements ICardService {
         if (cardEntity.userId !== userId) {
             throw new ForbiddenError(`Forbidden`);
         }
+        if (cardEntity.status === Status.Blocked) {
+            throw new BadRequestError(`Card is blocked`);
+        }
         const walletEntity = await this.walletRepository.findById(cardEntity.wallet.id);
         if (!walletEntity) {
             throw new NotFoundError(`Wallet with id ${id} not found`);
@@ -100,6 +103,9 @@ export class CardService implements ICardService {
         }
         if (cardEntity.userId !== userId) {
             throw new ForbiddenError(`Forbidden`);
+        }
+        if (cardEntity.status === Status.Blocked) {
+            throw new ForbiddenError(`Card is blocked`);
         }
         const walletEntity = await this.walletRepository.findById(cardEntity.wallet.id);
         if (!walletEntity) {
